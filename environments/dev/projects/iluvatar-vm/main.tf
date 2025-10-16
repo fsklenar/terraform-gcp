@@ -1,5 +1,5 @@
 # Data source to read the shared VPC state
-data "terraform_remote_state" "custom_vpc" {
+data "terraform_remote_state" "vpc_network" {
   backend = "gcs"
   config = {
     bucket = "tf-state-iluvatar"
@@ -7,7 +7,7 @@ data "terraform_remote_state" "custom_vpc" {
   }
 }
 
-data "terraform_remote_state" "custom_subnet" {
+data "terraform_remote_state" "vpc_subnet" {
   backend = "gcs"
   config = {
     bucket = "tf-state-iluvatar"
@@ -18,7 +18,7 @@ data "terraform_remote_state" "custom_subnet" {
 # Create a Firewall Rule to allow SSH (port 22)
 resource "google_compute_firewall" "allow_ssh" {
   name    = "${var.network_name}-allow-ssh"
-  network = data.terraform_remote_state.custom_vpc.outputs.vpc_name
+  network = data.terraform_remote_state.vpc_network.outputs.vpc_name
 
   allow {
     protocol = "tcp"
@@ -32,7 +32,7 @@ resource "google_compute_firewall" "allow_ssh" {
 # Create a Firewall Rule to allow HTTP(s) (port 80,443) and ICMP (ping)
 resource "google_compute_firewall" "allow_http_icmp" {
   name    = "${var.network_name}-allow-http-icmp"
-  network = data.terraform_remote_state.custom_vpc.outputs.vpc_name
+  network = data.terraform_remote_state.vpc_network.outputs.vpc_name
 
   allow {
     protocol = "tcp"
@@ -64,7 +64,8 @@ resource "google_compute_instance" "vm_instance" {
 
   # Network interface configuration
   network_interface {
-    subnetwork = data.terraform_remote_state.custom_subnet.outputs.self_link
+    subnetwork = data.terraform_remote_state.vpc_subnet.outputs.subnet_self_link
+    access_config {} # Required to get an external IP
   }
 
   # Add your SSH public key for access (replace with your actual public key)
