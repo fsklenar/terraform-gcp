@@ -4,7 +4,6 @@ data "terraform_remote_state" "custom_vpc" {
   config = {
     bucket = "tf-state-iluvatar"
     prefix = "terraform/state/vpc"
-    #region = "us-east1"
   }
 }
 
@@ -26,7 +25,7 @@ resource "google_compute_firewall" "allow_ssh" {
     ports    = ["22"]
   }
 
-  source_ranges = ["37.139.8.159/32","35.235.240.0/20"] # Allow from any IP address
+  source_ranges = ["37.139.8.159/32","35.235.240.0/20"]
   target_tags   = ["${var.network_name}-vm"]
 }
 
@@ -44,7 +43,7 @@ resource "google_compute_firewall" "allow_http_icmp" {
     protocol = "icmp"
   }
 
-  source_ranges = ["0.0.0.0/0"] # Allow from any IP address (be more restrictive in production)
+  source_ranges = ["0.0.0.0/0"] # Allow from any IP address
   target_tags   = ["${var.network_name}-vm"]
 }
 

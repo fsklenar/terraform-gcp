@@ -3,6 +3,7 @@ resource "google_compute_network" "custom_vpc" {
   name                    = "${var.network_name}-vpc"
   auto_create_subnetworks = false
   routing_mode            = "REGIONAL"
+
 }
 
 # 2. Create a Subnet within the VPC

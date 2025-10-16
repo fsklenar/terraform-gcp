@@ -58,3 +58,11 @@ variable "ssh_public_key_path" {
   description = "Path to the SSH public key file (e.g., ~/.ssh/id_rsa.pub)."
   type        = string
 }
+
+variable "default_labels" {
+  description = "Global default labels"
+  type        = map(string)
+  default = {
+    managed_by = "terraform"
+  }
+}
