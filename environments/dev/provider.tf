@@ -15,7 +15,7 @@ provider "google" {
   add_terraform_attribution_label = true
 
   default_labels = {
-    terraform   = "true"
-    source      = replace(replace(path.cwd, "/^.*?(${"terraform"}\\/)/", "$1"),"/","-")
+    terraform = "true"
+    source    = replace(replace(path.cwd, "/^.*?(${"terraform"}\\/)/", "$1"), "/", "-")
   }
 }
