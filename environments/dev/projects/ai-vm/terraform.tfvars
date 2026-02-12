@@ -7,4 +7,4 @@ gcp_region = "us-east1"
 gcp_zone   = "us-east1-b"
 
 #VM
-vm_name = "iluvatar-vm"
+vm_name = "ai-vm"
