@@ -15,38 +15,6 @@ data "terraform_remote_state" "vpc_subnet" {
   }
 }
 
-# # Create a Firewall Rule to allow SSH (port 22)
-# resource "google_compute_firewall" "allow_ssh" {
-#   name    = "${var.network_name}-allow-ssh"
-#   network = data.terraform_remote_state.vpc_network.outputs.vpc_name
-#
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["22"]
-#   }
-#
-#   source_ranges = ["37.139.8.159/32","35.235.240.0/20"]
-#   target_tags   = ["${var.network_name}-vm"]
-# }
-#
-# # Create a Firewall Rule to allow HTTP(s) (port 80,443) and ICMP (ping)
-# resource "google_compute_firewall" "allow_http_icmp" {
-#   name    = "${var.network_name}-allow-http-icmp"
-#   network = data.terraform_remote_state.vpc_network.outputs.vpc_name
-#
-#   allow {
-#     protocol = "tcp"
-#     ports    = ["80","443"]
-#   }
-#
-#   allow {
-#     protocol = "icmp"
-#   }
-#
-#   source_ranges = ["0.0.0.0/0"] # Allow from any IP address
-#   target_tags   = ["${var.network_name}-vm"]
-# }
-
 # Create the Compute Engine VM Instance
 resource "google_compute_instance" "vm_instance" {
   name         = "${var.vm_name}"
