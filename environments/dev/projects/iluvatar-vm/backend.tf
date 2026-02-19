@@ -1,6 +1,6 @@
 terraform {
   backend "gcs" {
-    bucket  = "tf-state-iluvatar"
+    bucket  = "tf-state-gce"
     prefix  = "terraform/state/vm"
   }
 }
