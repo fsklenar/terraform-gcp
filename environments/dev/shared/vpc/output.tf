@@ -12,4 +12,3 @@ output "subnet_self_link" {
   value       = google_compute_subnetwork.vpc_subnet.self_link
   description = "The URI of the subnet being created"
 }
-

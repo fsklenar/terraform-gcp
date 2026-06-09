@@ -34,6 +34,10 @@ resource "google_compute_instance" "vm_instance" {
   network_interface {
     subnetwork = data.terraform_remote_state.vpc_subnet.outputs.subnet_self_link
     access_config {} # Required to get an external IP
+    stack_type = "IPV4_IPV6"
+    ipv6_access_config {
+      network_tier = "PREMIUM"
+    }
   }
 
   # Add your SSH public key for access (replace with your actual public key)

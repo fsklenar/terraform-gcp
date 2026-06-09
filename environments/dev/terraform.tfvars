@@ -1,4 +1,4 @@
-# 🔑 IMPORTANT: Replace these with your actual values
+# IMPORTANT: Replace these with your actual values
 gcp_project_id      = "fskbackup"
 
 # Optional: Customize region/zone if needed

@@ -17,6 +17,9 @@ resource "google_compute_subnetwork" "vpc_subnet" {
   ip_cidr_range = var.subnet_cidr_range
   region        = var.gcp_region
   network       = module.vpc.network_self_link
+
+  stack_type       = "IPV4_IPV6"
+  ipv6_access_type = "EXTERNAL"
 }
 
 # Create a Firewall Rule to allow SSH (port 22)
@@ -48,5 +51,23 @@ resource "google_compute_firewall" "allow_http_icmp" {
   }
 
   source_ranges = ["0.0.0.0/0"] # Allow from any IP address
+  target_tags   = ["${var.network_name}-vm"]
+}
+
+# Nové pravidlo pre IPv6
+resource "google_compute_firewall" "allow_http_icmp_ipv6" {
+  name    = "${var.network_name}-allow-http-icmp-ipv6"
+  network = module.vpc.network_name
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80", "443"]
+  }
+
+  allow {
+    protocol = "58"  # ICMPv6
+  }
+
+  source_ranges = ["::/0"]
   target_tags   = ["${var.network_name}-vm"]
 }
