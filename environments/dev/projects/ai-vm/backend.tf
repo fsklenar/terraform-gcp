@@ -1,6 +1,0 @@
-terraform {
-  backend "gcs" {
-    bucket  = "tf-state-gce"
-    prefix  = "terraform/state/vm/ai"
-  }
-}
