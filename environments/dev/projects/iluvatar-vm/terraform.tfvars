@@ -7,4 +7,4 @@ gcp_zone   = "us-east1-b"
 
 #VM
 vm_name = "iluvatar-vm"
-ssh_public_key_path = "~/.ssh/id_rsa.pub" # Adjust this path if necessary
+ssh_public_key_path = "~/.ssh/id_ed25519.pub" # Adjust this path if necessary

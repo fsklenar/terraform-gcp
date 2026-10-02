@@ -32,7 +32,7 @@ resource "google_compute_firewall" "allow_ssh" {
     ports    = ["22"]
   }
 
-  source_ranges = ["37.139.8.159/32","35.235.240.0/20"]
+  source_ranges = ["91.226.113.60/32","35.235.240.0/20"]
   target_tags   = ["${var.network_name}-vm"]
 }
 
